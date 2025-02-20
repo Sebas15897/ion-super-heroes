@@ -1,13 +1,40 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>list-heroes</ion-title>
+    <ion-title>{{ 'LIST_HEROES' | translate }}</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="openLanguageSelector()">
+        <ion-icon name="globe-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">list-heroes</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="loadHeroes($event)">
+    <ion-refresher-content
+      pullingText="Desliza para actualizar"
+    ></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngIf="error$ | async as error">
+    <ion-card-header>
+      <ion-card-title>{{ 'ERROR' | translate }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content> {{ error }} </ion-card-content>
+  </ion-card>
+
+  <ion-list *ngIf="heroes$ | async as heroes">
+    <ion-item *ngFor="let hero of heroes" (click)="goToHeroDetail(hero)">
+      <ion-avatar slot="start">
+        <img
+          [src]="hero.thumbnail.path + '.' + hero.thumbnail.extension"
+          alt="{{ hero.name }}"
+        />
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ hero.name }}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

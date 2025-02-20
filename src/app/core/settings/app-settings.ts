@@ -8,6 +8,12 @@ import { environment } from '../../../environments/environment';
 
 export class AppSettings {
 
+  public hero = {
+    urls: {
+      base: EndPoint.urlBase('characters')
+    }
+  }
+
 
   public marvelKeys = {
     publicKey: environment.publicKey,

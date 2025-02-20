@@ -1,0 +1,14 @@
+{
+  "APP_TITLE": "App de Héroes",
+  "LIST_HEROES": "Lista de Héroes",
+  "DETAILS": "Detalles del Héroe",
+  "COMICS": "Cómics Disponibles",
+  "SERIES": "Series Disponibles",
+  "STORIES": "Historias Disponibles",
+  "BACK": "Atrás",
+  "SELECT_LANGUAGE": "Seleccionar Idioma",
+  "SAVE": "Guardar",
+  "ERROR_LOADING_HEROES": "Error al cargar héroes. Inténtalo de nuevo.",
+  "ERROR_FETCHING_HERO": "Error al obtener detalles del héroe. Inténtalo de nuevo.",
+  "HERO_NOT_FOUND": "Héroe no encontrado."
+}

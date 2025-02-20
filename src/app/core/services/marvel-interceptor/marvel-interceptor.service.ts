@@ -1,72 +1,50 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@capacitor-community/http';
-import { BehaviorSubject, from, Observable, throwError } from 'rxjs';
-import { catchError, finalize, map } from 'rxjs/operators';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { from, Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { generateMarvelHash } from '../../helpers/auth.helper';
-import { AppSettings } from '../../settings/app-settings';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class MarvelApiService {
+  private publicKey = environment.publicKey;
+  private privateKey = environment.privateKey;
 
-  private apiUrl = 'https://gateway.marvel.com/v1/public/';
-  private publicKey = 'TU_PUBLIC_KEY';
-  private privateKey = 'TU_PRIVATE_KEY';
-  private isLoading = new BehaviorSubject<boolean>(false);
+  constructor() {}
 
-  constructor(
-    private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController,
-    private appSettings: AppSettings
-  ) {}
-
-  private async showLoader() {
-    if (!this.isLoading.value) {
-      this.isLoading.next(true);
-      const loading = await this.loadingCtrl.create({ message: 'Cargando...' });
-      await loading.present();
-    }
-  }
-
-  private async hideLoader() {
-    if (this.isLoading.value) {
-      this.isLoading.next(false);
-      await this.loadingCtrl.dismiss();
-    }
-  }
-
-  private async showError(message: string) {
-    const toast = await this.toastCtrl.create({
-      message,
-      duration: 3000,
-      color: 'danger'
-    });
-    await toast.present();
-  }
-
-  request(endpoint: string, params: any = {}): Observable<any> {
+  private generateAuthParams() {
     const ts = new Date().getTime().toString();
     const hash = generateMarvelHash(ts, this.publicKey, this.privateKey);
+    return { ts, apikey: this.publicKey, hash };
+  }
 
-    params = {
-      ...params,
-      ts,
-      apikey: this.publicKey,
-      hash
+  request(
+    method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
+    endpoint: string,
+    params: any = {},
+    data: any = {}
+  ): Observable<any> {
+    const authParams = this.generateAuthParams();
+    const url = endpoint;
+
+    const options: any = {
+      url,
+      method,
+      params: method === 'GET' ? { ...authParams, ...params } : authParams,
     };
 
-    this.showLoader();
+    if (['POST', 'PUT', 'PATCH'].includes(method)) {
+      options.data = data;
+    }
 
-    return from(Http.get({ url: `${this.apiUrl}${endpoint}`, params })).pipe(
-      map(response => response.data),
-      catchError(error => {
-        this.showError(`Error: ${error.message || 'Error en la API de Marvel'}`);
+    return from(Http.request(options)).pipe(
+      map((response) => response.data),
+      catchError((error) => {
         return throwError(() => error);
-      }),
-      finalize(() => this.hideLoader())
+      })
     );
   }
 }

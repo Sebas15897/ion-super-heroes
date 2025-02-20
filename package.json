@@ -23,6 +23,8 @@
     "@angular/router": "^19.0.0",
     "@capacitor-community/http": "^1.4.1",
     "@ionic/angular": "^8.0.0",
+    "@ngx-translate/core": "^16.0.4",
+    "@ngx-translate/http-loader": "^16.0.1",
     "@ngxs/devtools-plugin": "^19.0.0-dev.master-e6bcd3b",
     "@ngxs/logger-plugin": "^19.0.0-dev.master-e6bcd3b",
     "@ngxs/store": "^19.0.0-dev.master-e6bcd3b",
