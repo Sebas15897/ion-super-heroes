@@ -41,6 +41,10 @@
     </ion-card-content>
   </ion-card>
 
+  <div *ngIf="loading$ | async" class="loading-overlay">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
   <ion-card *ngIf="error$ | async as error">
     <ion-card-header>
       <ion-card-title>{{ 'ERROR' | translate }}</ion-card-title>

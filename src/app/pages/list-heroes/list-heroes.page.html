@@ -24,6 +24,10 @@
     <ion-card-content> {{ error }} </ion-card-content>
   </ion-card>
 
+  <div *ngIf="loading$ | async" class="loading-overlay">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
   <ion-list *ngIf="heroes$ | async as heroes">
     <ion-item *ngFor="let hero of heroes" (click)="goToHeroDetail(hero)">
       <ion-avatar slot="start">
