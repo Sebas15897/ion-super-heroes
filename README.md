@@ -59,8 +59,8 @@ Marvel Superheroes App es una aplicación desarrollada con **Ionic 8**, **Angula
 ### 📌 **1. Clonar el Repositorio**
 
 ```sh
-git clone https://github.com/usuario/marvel-heroes-app.git
-cd marvel-heroes-app
+git clone https://github.com/Sebas15897/ion-super-heroes.git
+cd ion-super-heroes
 ```
 
 ### 📌 **2. Instalar Dependencias**
