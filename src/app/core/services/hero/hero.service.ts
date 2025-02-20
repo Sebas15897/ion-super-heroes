@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MarvelApiService } from '../marvel-interceptor/marvel-interceptor.service';
+import { MarvelApiService } from '../marvel/marvel.service';
 import { AppSettings } from '../../settings/app-settings';
 import { IHeroesReponse } from '../../interfaces/heroes.interface';
 
@@ -16,7 +16,7 @@ export class MarvelService {
 
   getHeroes(): Observable<IHeroesReponse> {
     const endpoint = this.appSettings.hero.urls.base;
-    return this.apiService.request('GET', endpoint, { limit: '20' });
+    return this.apiService.request('GET', endpoint, { limit: 20 });
   }
 
   getHeroById(heroId: number): Observable<any> {

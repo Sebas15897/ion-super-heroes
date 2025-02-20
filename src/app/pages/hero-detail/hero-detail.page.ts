@@ -16,9 +16,9 @@ import { LanguageSelectorComponent } from '../../core/components/language-select
 })
 
 export class HeroDetailPage implements OnInit {
-  hero$!: Observable<IHero | null>;
-  loading$!: Observable<boolean>;
-  error$!: Observable<string | null>;
+  hero$: Observable<IHero | null>;
+  loading$: Observable<boolean>;
+  error$: Observable<string | null>;
 
   constructor(
     private route: ActivatedRoute,

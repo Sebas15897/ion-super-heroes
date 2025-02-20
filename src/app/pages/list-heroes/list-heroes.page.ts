@@ -17,9 +17,9 @@ import { ModalController } from '@ionic/angular';
 })
 
 export class ListHeroesPage implements OnInit, OnDestroy {
-  heroes$!: Observable<IHero[]>;
-  loading$!: Observable<boolean>;
-  error$!: Observable<string | null>;
+  heroes$: Observable<IHero[]>;
+  loading$: Observable<boolean>;
+  error$: Observable<string | null>;
 
   private destroy$ = new Subject<void>();
 
@@ -27,12 +27,13 @@ export class ListHeroesPage implements OnInit, OnDestroy {
     private store: Store,
     private router: Router,
     private modalCtrl: ModalController
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.heroes$ = this.store.select(HeroState.getHeroes);
     this.loading$ = this.store.select(HeroState.isLoading);
     this.error$ = this.store.select(HeroState.getError);
+  }
+
+  ngOnInit() {
     this.loadHeroes();
   }
 

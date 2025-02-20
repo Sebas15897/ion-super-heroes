@@ -6,13 +6,14 @@ import { ListHeroesPageRoutingModule } from './list-heroes-routing.module';
 import { ListHeroesPage } from './list-heroes.page';
 import { TranslateModule } from '@ngx-translate/core';
 
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     ListHeroesPageRoutingModule,
-    TranslateModule
+    TranslateModule,
   ],
   declarations: [ListHeroesPage]
 })

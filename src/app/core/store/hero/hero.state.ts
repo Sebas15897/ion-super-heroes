@@ -26,7 +26,10 @@ export interface HeroStateModel {
 
 @Injectable()
 export class HeroState {
-  constructor(private marvelService: MarvelService, private translate: TranslateService) {}
+  constructor(
+    private marvelService: MarvelService,
+    private translate: TranslateService
+  ) {}
 
   @Selector()
   static getHeroes(state: HeroStateModel): IHero[] {
@@ -48,7 +51,6 @@ export class HeroState {
     return state.error;
   }
 
-  // ✅ Traducir mensajes de error dinámicamente
   private getTranslatedErrorMessage(key: string): string {
     let translatedMessage = '';
     this.translate.get(key).subscribe((translation) => {
@@ -75,7 +77,10 @@ export class HeroState {
   }
 
   @Action(LoadHeroDetailAction)
-  loadHeroDetail(ctx: StateContext<HeroStateModel>, action: LoadHeroDetailAction) {
+  loadHeroDetail(
+    ctx: StateContext<HeroStateModel>,
+    action: LoadHeroDetailAction
+  ) {
     ctx.patchState({ loading: true, error: null, selectedHero: null });
 
     return this.marvelService.getHeroById(action.heroId).pipe(
